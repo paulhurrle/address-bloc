@@ -50,41 +50,64 @@ RSpec.describe AddressBook do
             expect(entry.email).to eq(expected_email)
         end
 
-        it "imports the correct number of entries" do
+        it "imports the correct number of entries from entries.csv" do
             book.import_from_csv("entries.csv")
             book_size = book.entries.size
-
             expect(book_size).to eq(5)
         end
 
-        it "imports the 1st entry" do
+        it "imports the 1st entry from entries.csv" do
             book.import_from_csv("entries.csv")
             entry_one = book.entries[0]
             check_entry(entry_one, "Bill", "555-555-4854", "bill@blocmail.com")
         end
 
-        it "imports the 2nd entry" do
+        it "imports the 2nd entry from entries.csv" do
             book.import_from_csv("entries.csv")
             entry_two = book.entries[1]
             check_entry(entry_two, "Bob", "555-555-5415", "bob@blocmail.com")
         end
 
-        it "imports the 3rd entry" do
+        it "imports the 3rd entry from entries.csv" do
             book.import_from_csv("entries.csv")
             entry_three = book.entries[2]
             check_entry(entry_three, "Joe", "555-555-3660", "joe@blocmail.com")
         end
 
-        it "imports the 4th entry" do
+        it "imports the 4th entry from entries.csv" do
             book.import_from_csv("entries.csv")
             entry_four = book.entries[3]
             check_entry(entry_four, "Sally", "555-555-4646", "sally@blocmail.com")
         end
 
-        it "imports the 5th entry" do
+        it "imports the 5th entry from entries.csv" do
             book.import_from_csv("entries.csv")
             entry_five = book.entries[4]
             check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
+        end
+
+        it "imports the correct number of entries from entries_2.csv" do
+            book.import_from_csv("entries_2.csv")
+            book_size = book.entries.size
+            expect(book_size).to eq(3)
+        end
+
+        it "imports the 1st entry from entries_2.csv" do
+            book.import_from_csv("entries_2.csv")
+            entry_one = book.entries[0]
+            check_entry(entry_one, "Humpty Dumpty", "555-555-0003", "humpty_dumpty@blocmail.com")
+        end
+
+        it "imports the 2nd entry from entries_2.csv" do
+            book.import_from_csv("entries_2.csv")
+            entry_two = book.entries[1]
+            check_entry(entry_two, "Jack", "555-555-0001", "jack@blocmail.com")
+        end
+
+        it "imports the 3rd entry from entries_2.csv" do
+            book.import_from_csv("entries_2.csv")
+            entry_three = book.entries[2]
+            check_entry(entry_three, "Jill", "555-555-0002", "jill@blocmail.com")
         end
     end
 end

@@ -10,10 +10,12 @@ class MenuController
     def main_menu
         puts "Main Menu - #{address_book.entries.count} entries"
         puts "1 - View all entries"
-        puts "2 - Create an entry"
-        puts "3 = Search for an entry"
-        puts "4 - Import entries from a CSV"
-        puts "5 - Exit"
+        puts "2 - View entry by record number"
+        puts "3 - Create an entry"
+        puts "4 = Search for an entry"
+        puts "5 - Import entries from a CSV"
+        puts "6 - Exit"
+        puts "\n"
         print "Enter your selection: "
 
         selection = gets.to_i
@@ -25,22 +27,26 @@ class MenuController
                 main_menu
             when 2
                 system "clear"
-                create_entry
+                view_entry_number
                 main_menu
             when 3
                 system "clear"
-                search_entries
+                create_entry
                 main_menu
             when 4
                 system "clear"
-                read_csv
+                search_entries
                 main_menu
             when 5
+                system "clear"
+                read_csv
+                main_menu
+            when 6
                 puts "Good-bye!"
                 exit(0)
             else
                 system "clear"
-                puts "Sorry, that is not a valid input"
+                puts "Sorry, that is not a valid input.\n\n"
                 main_menu
             end
         end
@@ -48,17 +54,33 @@ class MenuController
         def view_all_entries
             address_book.entries.each do |entry|
                 system "clear"
-                puts entry.to_s
+                puts entry.to_s + "\n\n"
                 entry_submenu(entry)
             end
 
             system "clear"
-            puts "End of entries"
+            puts "End of entries\n\n"
+        end
+
+        def view_entry_number
+            if address_book.entries.count == 0
+                puts "There are no address records\n\n"
+                main_menu
+            else
+                print "Enter record number from 1 - #{address_book.entries.count}: "
+                selection = gets.chomp.to_i
+                system "clear"
+                if address_book.entries.size < selection || selection <= 0
+                    puts "Sorry, that is not a valid record.\n\n"
+                    view_entry_number
+                end
+                puts "\n" + address_book.entries[selection-1].to_s + "\n\n"
+            end
         end
 
         def create_entry
             system "clear"
-            puts "New AddressBloc Entry"
+            puts "New AddressBloc Entry\n\n"
             print "Name: "
             name = gets.chomp
             print "Phone number: "
@@ -69,7 +91,7 @@ class MenuController
             address_book.add_entry(name, phone, email)
 
             system "clear"
-            puts "New entry created"
+            puts "New entry created!\n\n"
         end
 
         def search_entries
@@ -95,7 +117,7 @@ class MenuController
                     main_menu
                 else
                     system "clear"
-                    puts "#{selection} is not a valid input"
+                    puts "#{selection} is not a valid input.\n\n"
                     entry_submenu(entry)
             end
         end

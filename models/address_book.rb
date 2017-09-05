@@ -38,6 +38,12 @@ class AddressBook
         end
     end
 
+    def nuke
+        while entries.size > 0
+            entries.pop
+        end
+    end
+
     def import_from_csv(file_name)
         csv_text = File.read(file_name)
         csv = CSV.parse(csv_text, headers: true, skip_blanks: true)
